@@ -8,6 +8,7 @@
 
 #include <GLFW/glfw3.h>
 
+#include "../engine/eventsystem.h"
 #include "keyboard.h"
 #include "mouse.h"
 
@@ -15,12 +16,6 @@ namespace eng
 {
 class Window;
 } // namespace eng
-
-struct Devices
-{
-    std::shared_ptr<eng::Keyboard> keyboard{nullptr};
-    std::shared_ptr<eng::Mouse>    mouse{nullptr};
-};
 
 class eng::Window
 {
@@ -47,6 +42,7 @@ private:
     int         m_height;
     std::string m_title;
 
-    GLFWwindow* m_window;
-    Devices     m_devices;
+    GLFWwindow*                    m_window;
+    std::shared_ptr<eng::Keyboard> m_keyboard{nullptr};
+    std::shared_ptr<eng::Mouse>    m_mouse{nullptr};
 };

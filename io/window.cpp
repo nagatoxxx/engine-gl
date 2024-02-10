@@ -51,26 +51,16 @@ void Window::init()
     glfwSetKeyCallback(m_window, &Window::keyCallback);
     glfwSetCursorPosCallback(m_window, &Window::cursorPositionCallback);
     glfwSetCursorPos(m_window, m_width / 2.0f, m_height / 2.0f);
-
-    glfwSetWindowUserPointer(m_window, &m_devices);
 }
 
 /* static */ void Window::keyCallback(GLFWwindow* window, int key, int scancode, int action, int mode)
 {
-    Devices* devices = static_cast<Devices*>(glfwGetWindowUserPointer(window));
-
-    if (devices->keyboard) {
-        devices->keyboard->setKeyState(key, action != GLFW_RELEASE);
-    }
+    EventSystem::sendEvent<KeyboardEvent>(KeyboardEvent(key, action));
 }
 
 /* static */ void Window::cursorPositionCallback(GLFWwindow* window, double xpos, double ypos)
 {
-    Devices* devices = static_cast<Devices*>(glfwGetWindowUserPointer(window));
-
-    if (devices->mouse) {
-        devices->mouse->setPosition(xpos, ypos);
-    }
+    EventSystem::sendEvent<MouseEvent>(MouseEvent(xpos, ypos));
 }
 
 
@@ -84,7 +74,14 @@ void Window::setKeyboardPtr(std::shared_ptr<Keyboard> keyboard)
     if (keyboard == nullptr) {
         return;
     }
-    m_devices.keyboard = keyboard;
+    m_keyboard = keyboard;
+
+    EventSystem::registerEventCallback(eng::EventType::KeyboardType,
+                                       [this](std::shared_ptr<Event> e)
+                                       {
+                                           std::shared_ptr<KeyboardEvent> ke = std::dynamic_pointer_cast<KeyboardEvent>(e);
+                                           this->m_keyboard->setKeyState(ke->key(), ke->action());
+                                       });
 
     Logger::log("Window: Keyboard pointer set");
 }
@@ -94,7 +91,14 @@ void Window::setMousePtr(std::shared_ptr<Mouse> mouse)
     if (mouse == nullptr) {
         return;
     }
-    m_devices.mouse = mouse;
+    m_mouse = mouse;
+
+    EventSystem::registerEventCallback(eng::EventType::MouseType,
+                                       [this](std::shared_ptr<Event> e)
+                                       {
+                                           std::shared_ptr<MouseEvent> me = std::dynamic_pointer_cast<MouseEvent>(e);
+                                           this->m_mouse->setPosition(me->x(), me->y());
+                                       });
 
     Logger::log("Window: Mouse pointer set");
 }

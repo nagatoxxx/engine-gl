@@ -19,7 +19,8 @@ Timer::~Timer()
 
 void Timer::start()
 {
-    m_startTime = m_clock.now();
+    m_startTime      = m_clock.now();
+    m_constStartTime = m_startTime;
 
     Logger::log("Timer started");
 }
@@ -35,11 +36,11 @@ float Timer::reset()
     return elapsedTime.count();
 }
 
-uint64_t Timer::getElapsedTime()
+float Timer::timeSinceStart()
 {
     m_endTime = m_clock.now();
 
-    std::chrono::duration elapsedTime = std::chrono::duration_cast<std::chrono::milliseconds>(m_endTime - m_startTime);
+    std::chrono::duration<float> elapsedTime = m_endTime - m_constStartTime;
 
     return elapsedTime.count();
 }

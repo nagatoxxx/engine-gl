@@ -16,7 +16,7 @@ public:
 
     void bind() const;
     void unbind() const;
-    void bufferData(const GLfloat* vertices, GLsizeiptr size, GLenum usage = GL_STATIC_DRAW) const;
+    void bufferData(const GLfloat* indices, GLsizeiptr size, GLenum usage = GL_STATIC_DRAW) const;
 
     template <typename T>
     void bufferData(const T* vertices, GLsizeiptr size, GLenum usage = GL_STATIC_DRAW)

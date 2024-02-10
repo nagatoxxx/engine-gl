@@ -48,14 +48,19 @@ void Texture::unbind() const
     glBindTexture(m_type, 0);
 }
 
+/* static */ void Texture::enableTexureUnit(GLuint i)
+{
+    glActiveTexture(GL_TEXTURE0 + i);
+}
+
 void Texture::setTextureUnit(GLuint shaderID, const std::string& uniform, GLuint unit) const
 {
-    // Gets the location of the uniform
+    // gets the location of the uniform
     GLint uniformLocation = glGetUniformLocation(shaderID, uniform.c_str());
 
     if (uniformLocation == -1) {
         throw std::runtime_error("Could not find uniform: " + uniform);
     }
-    // Sets the value of the uniform
+    // sets the value of the uniform
     glUniform1i(uniformLocation, unit);
 }

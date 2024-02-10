@@ -20,7 +20,8 @@ public:
     void bind() const;
     void unbind() const;
 
-    void setTextureUnit(GLuint shaderID, const std::string& uniform, GLuint unit) const;
+    static void enableTexureUnit(GLuint i);
+    void        setTextureUnit(GLuint shaderID, const std::string& uniform, GLuint unit) const;
 
 private:
     GLenum m_type;

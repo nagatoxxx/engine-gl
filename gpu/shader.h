@@ -17,7 +17,7 @@ class eng::Shader
 public:
     Shader(const std::string& vertexPath, const std::string& fragmentPath);
 
-    void use();
+    void use() const;
 
     GLuint getProgram() const
     {

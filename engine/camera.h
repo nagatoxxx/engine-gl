@@ -35,8 +35,8 @@ private:
     glm::vec3       m_right;
     const glm::vec3 m_globalUp;
 
-    float m_pitchAngle; // тангаж
-    float m_yawAngle;   // рысканье
+    float m_pitchAngle;
+    float m_yawAngle;
 
     float m_sensivity;
     float m_fov;

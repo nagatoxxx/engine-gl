@@ -12,6 +12,7 @@ class eng::VBO
 {
 public:
     VBO();
+    VBO(const VBO& other);
     ~VBO();
 
     void bind() const;

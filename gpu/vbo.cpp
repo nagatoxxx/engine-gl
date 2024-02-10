@@ -7,6 +7,10 @@ VBO::VBO()
     glGenBuffers(1, &m_id);
 }
 
+VBO::VBO(const VBO& other)
+{
+}
+
 VBO::~VBO()
 {
     this->unbind();
@@ -25,5 +29,6 @@ void VBO::unbind() const
 
 void VBO::bufferData(const GLfloat* vertices, GLsizeiptr size, GLenum usage /* = GL_STATIC_DRAW */) const
 {
+    this->bind();
     glBufferData(GL_ARRAY_BUFFER, size, vertices, usage);
 }

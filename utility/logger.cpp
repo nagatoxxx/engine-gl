@@ -9,6 +9,6 @@ static Timer timer;
 
 /* static */ void Logger::log(const std::string& msg)
 {
-    uint64_t seconds = timer.getElapsedTime();
-    std::cout << "[LOG] " << msg << " [" << seconds << " ms]" << '\n';
+    uint64_t time = timer.timeSinceStart();
+    std::cout << "[LOG] " << msg << " [" << time << " ms]" << '\n';
 }

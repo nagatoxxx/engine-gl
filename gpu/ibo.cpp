@@ -23,7 +23,8 @@ void IBO::unbind() const
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }
 
-void IBO::bufferData(const GLfloat* vertices, GLsizeiptr size, GLenum usage /* = GL_STATIC_DRAW */) const
+void IBO::bufferData(const GLfloat* indices, GLsizeiptr size, GLenum usage /* = GL_STATIC_DRAW */) const
 {
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, size, vertices, usage);
+    this->bind();
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, size, indices, usage);
 }
