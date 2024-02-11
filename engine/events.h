@@ -4,8 +4,9 @@ namespace eng
 {
 enum EventType
 {
-    KeyboardType = 0,
-    MouseType,
+    KeyPressed = 0,
+    MouseMoved,
+    MouseButtonClicked,
     CustomType
 };
 

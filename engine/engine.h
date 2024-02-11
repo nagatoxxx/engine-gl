@@ -9,6 +9,7 @@
 #include "../utility/timer.h"
 #include "camera.h"
 #include "object.h"
+#include "world.h"
 
 namespace eng
 {
@@ -18,7 +19,7 @@ class Engine;
 class eng::Engine
 {
 public:
-    Engine();
+    Engine(int windowWidth, int windowHeight, const std::string& windowTitle);
     virtual ~Engine();
 
     void run();
@@ -30,11 +31,9 @@ private:
     std::unique_ptr<eng::Window>   m_window;
     std::shared_ptr<eng::Keyboard> m_keyboard;
     std::shared_ptr<eng::Mouse>    m_mouse;
+    std::unique_ptr<eng::Timer>    m_timer;
 
-    std::unique_ptr<eng::Timer> m_timer;
-
-    // tmp
+    Shader m_shader;
     Camera m_camera;
-    Object cube;
-    Shader shader;
+    World  m_world;
 };

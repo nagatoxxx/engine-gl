@@ -1,13 +1,21 @@
 #include "object.h"
+#include "../utility/logger.h"
 
 using namespace eng;
 
-Object::Object(const std::string& filename, const std::string& name) : m_name(name), m_model(filename)
+Object::Object() : m_name("object"), m_model()
 {
+    Logger::log("Object created: " + m_name);
+}
+
+Object::Object(const std::string& name, const std::string& filename) : m_name(name), m_model(filename)
+{
+    Logger::log("Object created: " + m_name);
 }
 
 /* virtual */ Object::~Object()
 {
+    Logger::log("Object destroyed: " + m_name);
 }
 
 const std::string& Object::getName() const

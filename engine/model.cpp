@@ -5,6 +5,10 @@
 
 using namespace eng;
 
+Model::Model() : m_mesh(), m_modelMatrix(1.0f)
+{
+}
+
 Model::Model(const std::string& objfile) : m_mesh(objfile), m_modelMatrix(1.0f)
 {
 }
@@ -18,10 +22,13 @@ const glm::mat4& Model::getModelMatrix() const
     return m_modelMatrix;
 }
 
+void Model::loadMeshFromFile(const std::string& filename)
+{
+    m_mesh.loadFromFile(filename);
+}
+
 void Model::render()
 {
-    // shader.use();
-
     m_mesh.draw();
 }
 

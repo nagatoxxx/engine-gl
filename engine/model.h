@@ -13,11 +13,13 @@ class Model;
 class eng::Model
 {
 public:
+    Model();
     Model(const std::string& objfile);
     ~Model();
 
     const glm::mat4& getModelMatrix() const;
 
+    void loadMeshFromFile(const std::string& filename);
     void render();
     void translate(const glm::vec3& translation);
     void rotate(float angle, const glm::vec3& axis);

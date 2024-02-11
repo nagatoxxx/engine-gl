@@ -23,7 +23,8 @@ public:
     Window(int width, int height, const std::string& title);
     virtual ~Window();
 
-    bool shouldClose() const;
+    bool  shouldClose() const;
+    float getAspectRatio() const;
 
     void setKeyboardPtr(std::shared_ptr<Keyboard> keyboard);
     void setMousePtr(std::shared_ptr<Mouse> mouse);
@@ -42,7 +43,8 @@ private:
     int         m_height;
     std::string m_title;
 
-    GLFWwindow*                    m_window;
+    GLFWwindow* m_window;
+    // std::unique_ptr<GLFWwindow>    m_window{nullptr};
     std::shared_ptr<eng::Keyboard> m_keyboard{nullptr};
     std::shared_ptr<eng::Mouse>    m_mouse{nullptr};
 };

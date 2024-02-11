@@ -9,19 +9,20 @@
 
 using namespace eng;
 
-Engine::Engine()
-: m_window(std::make_unique<eng::Window>(800, 600, "engine")),
+Engine::Engine(int windowWidth, int windowHeight, const std::string& windowTitle)
+: m_window(std::make_unique<eng::Window>(windowWidth, windowHeight, windowTitle)),
   m_keyboard(std::make_shared<Keyboard>(Keyboard())),
-  m_mouse(std::make_shared<Mouse>(Mouse(400.0f, 300.0f))),
+  m_mouse(std::make_shared<Mouse>(Mouse(static_cast<double>(windowWidth) / 2, static_cast<double>(windowHeight) / 2))),
   m_timer(std::make_unique<Timer>(Timer())),
+  m_shader("resources/shaders/shader.vs", "resources/shaders/shader.frag"),
   m_camera(glm::vec3(0.0f, 0.0f, 3.0f), glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(0.0f, 1.0f, 0.0f)),
-  cube("resources/objects/cube.obj", "cube"),
-  shader("resources/shaders/shader.vs", "resources/shaders/shader.frag")
+  m_world()
 {
     glEnable(GL_DEPTH_TEST);
 
     m_window->setKeyboardPtr(m_keyboard);
     m_window->setMousePtr(m_mouse);
+
 
     Logger::log("Engine created");
 }
@@ -34,8 +35,13 @@ Engine::Engine()
 void Engine::run()
 {
     m_timer->start();
+
+    Object cube("cube", "resources/objects/cube.obj");
+    m_world.addObject(std::move(cube));
+
     while (!m_window->shouldClose()) {
         m_window->pollEvents();
+        EventSystem::pollEvents();
 
         this->update();
 
@@ -45,8 +51,6 @@ void Engine::run()
 
 /* virtual */ void Engine::update()
 {
-    EventSystem::pollEvents();
-
     // clear color and depth buffer
     glClearColor(0.0f, 0.0f, 0.0f, 0.2f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -78,31 +82,33 @@ void Engine::run()
     m_camera.incAngles(mouseDelta.x, -mouseDelta.y);
 
     // cube rendering
-    shader.use();
+    m_shader.use();
 
-    GLuint modelLoc = glGetUniformLocation(shader.getProgram(), "model");
-    glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(cube.model().getModelMatrix()));
+    auto cube = m_world.getObject("cube");
+
+    GLuint modelLoc = glGetUniformLocation(m_shader.getProgram(), "model");
+    glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(cube->model().getModelMatrix()));
 
     // view (camera) transformation
-    GLuint viewLoc = glGetUniformLocation(shader.getProgram(), "view");
+    GLuint viewLoc = glGetUniformLocation(m_shader.getProgram(), "view");
     glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(m_camera.getViewMatrix()));
 
     // perspective projection transformation
-    glm::mat4 projection = glm::perspective(m_camera.getFov(), 4.0f / 3.0f, 0.1f, 100.0f);
+    glm::mat4 projection = glm::perspective(m_camera.getFov(), m_window->getAspectRatio(), 0.1f, 100.0f);
 
-    GLuint projectionLoc = glGetUniformLocation(shader.getProgram(), "projection");
+    GLuint projectionLoc = glGetUniformLocation(m_shader.getProgram(), "projection");
     glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(projection));
 
     // lighting
-    GLint objectColorLoc = glGetUniformLocation(shader.getProgram(), "objectColor");
+    GLint objectColorLoc = glGetUniformLocation(m_shader.getProgram(), "objectColor");
     glUniform3f(objectColorLoc, 1.0f, 0.5f, 0.31f);
 
-    GLint lightColorLoc = glGetUniformLocation(shader.getProgram(), "lightColor");
+    GLint lightColorLoc = glGetUniformLocation(m_shader.getProgram(), "lightColor");
     glUniform3f(lightColorLoc, 1.0f, 1.0f, 1.0f);
 
     glm::vec3 lightPos(0.0f, 10.0f, 0.0f);
-    GLuint    lightPosLoc = glGetUniformLocation(shader.getProgram(), "lightPos");
+    GLuint    lightPosLoc = glGetUniformLocation(m_shader.getProgram(), "lightPos");
     glUniform3f(lightPosLoc, lightPos.x, lightPos.y, lightPos.z);
 
-    cube.render();
+    cube->render();
 }

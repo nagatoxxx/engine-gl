@@ -12,7 +12,7 @@ Event::Event(EventType type) : m_type(type)
 
 /* -------------------------------------------------------------------------------- */
 
-KeyboardEvent::KeyboardEvent(int key, int action) : Event(EventType::KeyboardType), m_key(key), m_action(action)
+KeyboardEvent::KeyboardEvent(int key, int action) : Event(EventType::KeyPressed), m_key(key), m_action(action)
 {
 }
 
@@ -22,7 +22,7 @@ KeyboardEvent::~KeyboardEvent()
 
 /* -------------------------------------------------------------------------------- */
 
-MouseEvent::MouseEvent(double x, double y) : Event(EventType::MouseType), m_x(x), m_y(y)
+MouseEvent::MouseEvent(double x, double y) : Event(EventType::MouseMoved), m_x(x), m_y(y)
 {
 }
 

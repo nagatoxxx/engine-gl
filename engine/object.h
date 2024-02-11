@@ -10,7 +10,8 @@ class Object;
 class eng::Object
 {
 public:
-    Object(const std::string& filename, const std::string& name);
+    Object();
+    Object(const std::string& name, const std::string& filename);
     virtual ~Object();
 
     const std::string& getName() const;

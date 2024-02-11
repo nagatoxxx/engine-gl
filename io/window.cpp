@@ -69,6 +69,11 @@ bool Window::shouldClose() const
     return glfwWindowShouldClose(m_window);
 }
 
+float Window::getAspectRatio() const
+{
+    return static_cast<float>(m_width) / m_height;
+}
+
 void Window::setKeyboardPtr(std::shared_ptr<Keyboard> keyboard)
 {
     if (keyboard == nullptr) {
@@ -76,7 +81,7 @@ void Window::setKeyboardPtr(std::shared_ptr<Keyboard> keyboard)
     }
     m_keyboard = keyboard;
 
-    EventSystem::registerEventCallback(eng::EventType::KeyboardType,
+    EventSystem::registerEventCallback(eng::EventType::KeyPressed,
                                        [this](std::shared_ptr<Event> e)
                                        {
                                            std::shared_ptr<KeyboardEvent> ke = std::dynamic_pointer_cast<KeyboardEvent>(e);
@@ -93,7 +98,7 @@ void Window::setMousePtr(std::shared_ptr<Mouse> mouse)
     }
     m_mouse = mouse;
 
-    EventSystem::registerEventCallback(eng::EventType::MouseType,
+    EventSystem::registerEventCallback(eng::EventType::MouseMoved,
                                        [this](std::shared_ptr<Event> e)
                                        {
                                            std::shared_ptr<MouseEvent> me = std::dynamic_pointer_cast<MouseEvent>(e);
