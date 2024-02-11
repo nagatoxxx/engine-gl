@@ -1,5 +1,5 @@
-#include "object.h"
-#include "../utility/logger.h"
+#include "../../include/engine/object.h"
+#include "../../include/utility/logger.h"
 
 using namespace eng;
 

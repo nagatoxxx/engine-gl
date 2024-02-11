@@ -19,7 +19,7 @@ public:
 
     virtual void render();
 
-private:
+protected:
     std::string m_name;
     Model       m_model;
 };

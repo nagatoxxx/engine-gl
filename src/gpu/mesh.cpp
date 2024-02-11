@@ -2,8 +2,8 @@
 #include <assimp/postprocess.h>
 #include <assimp/scene.h>
 
-#include "../utility/logger.h"
-#include "mesh.h"
+#include "../../include/gpu/mesh.h"
+#include "../../include/utility/logger.h"
 
 using namespace eng;
 

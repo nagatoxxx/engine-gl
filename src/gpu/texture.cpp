@@ -2,7 +2,7 @@
 
 #include <soil2/SOIL2.h>
 
-#include "texture.h"
+#include "../../include/gpu/texture.h"
 
 using namespace eng;
 

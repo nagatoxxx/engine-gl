@@ -1,4 +1,4 @@
-#include "vbo.h"
+#include "../../include/gpu/vbo.h"
 
 using namespace eng;
 

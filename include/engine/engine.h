@@ -25,15 +25,13 @@ public:
     void run();
 
 private:
-    virtual void update();
+    virtual void update() = 0;
 
-private:
+protected:
     std::unique_ptr<eng::Window>   m_window;
     std::shared_ptr<eng::Keyboard> m_keyboard;
     std::shared_ptr<eng::Mouse>    m_mouse;
     std::unique_ptr<eng::Timer>    m_timer;
 
-    Shader m_shader;
-    Camera m_camera;
-    World  m_world;
+    World m_world;
 };

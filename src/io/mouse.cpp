@@ -1,4 +1,4 @@
-#include "mouse.h"
+#include "../../include/io/mouse.h"
 
 using namespace eng;
 

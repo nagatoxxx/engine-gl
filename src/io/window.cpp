@@ -1,7 +1,7 @@
 #include <stdexcept>
 
-#include "../utility/logger.h"
-#include "window.h"
+#include "../../include/io/window.h"
+#include "../../include/utility/logger.h"
 
 using namespace eng;
 

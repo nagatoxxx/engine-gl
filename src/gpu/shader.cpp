@@ -1,4 +1,4 @@
-#include "shader.h"
+#include "../../include/gpu/shader.h"
 
 using namespace eng;
 

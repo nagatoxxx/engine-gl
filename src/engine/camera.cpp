@@ -1,8 +1,8 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/trigonometric.hpp>
 
-#include "../utility/logger.h"
-#include "camera.h"
+#include "../../include/engine/camera.h"
+#include "../../include/utility/logger.h"
 
 using namespace eng;
 

@@ -1,4 +1,4 @@
-#include "vao.h"
+#include "../../include/gpu/vao.h"
 
 using namespace eng;
 

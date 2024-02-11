@@ -1,4 +1,4 @@
-#include "ibo.h"
+#include "../../include/gpu/ibo.h"
 
 using namespace eng;
 

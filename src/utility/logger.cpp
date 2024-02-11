@@ -1,7 +1,7 @@
 #include <iostream>
 
-#include "logger.h"
-#include "timer.h"
+#include "../../include/utility/logger.h"
+#include "../../include/utility/timer.h"
 
 using namespace eng;
 

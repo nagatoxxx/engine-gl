@@ -1,7 +1,7 @@
 #include <glm/ext/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-#include "model.h"
+#include "../../include/engine/model.h"
 
 using namespace eng;
 
